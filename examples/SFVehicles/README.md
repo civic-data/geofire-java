@@ -20,3 +20,7 @@ SF Vehicles loads realtime transit data from a
 This sample loads its Firebase and GeoFire dependencies from Maven Central.
 If you modify and build GeoFire locally make sure to update to modify the gradle file to load GeoFire
 either directly or from your local maven repo.
+
+### To change package name
+
+See (http://stackoverflow.com/questions/22155938/android-studio-gets-package-name-wrong-when-running-apk/29862639#29862639)
