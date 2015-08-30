@@ -1,4 +1,4 @@
-package com.firebase.sfvehicles;
+package com.brooklynmarathon.nycvehicles;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.geofire.GeoFire;
@@ -17,15 +18,26 @@ import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.*;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 import java.util.Map;
 
+//import com.firebase.sfvehicles.R;
+
 public class SFVehiclesActivity extends FragmentActivity implements GeoQueryEventListener, GoogleMap.OnCameraChangeListener {
 
-    private static final GeoLocation INITIAL_CENTER = new GeoLocation(37.7789, -122.4017);
-    private static final int INITIAL_ZOOM_LEVEL = 14;
+    //private static final GeoLocation INITIAL_CENTER = new GeoLocation(37.7789, -122.4017);
+    private static final GeoLocation INITIAL_CENTER = new GeoLocation(40.650002, -73.949997);
+
+    //40.650002, and the longitude is -73.949997
+    //private static final int INITIAL_ZOOM_LEVEL = 14;
+    private static final int INITIAL_ZOOM_LEVEL = 10;
     private static final String GEO_FIRE_REF = "https://publicdata-transit.firebaseio.com/_geofire";
 
     private GoogleMap map;
