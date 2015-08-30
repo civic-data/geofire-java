@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentActivity;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
@@ -40,6 +42,7 @@ public class SFVehiclesActivity extends FragmentActivity implements GeoQueryEven
     private static final int INITIAL_ZOOM_LEVEL = 10;
     private static final String GEO_FIRE_REF = "https://publicdata-transit.firebaseio.com/_geofire";
 
+
     private GoogleMap map;
     private Circle searchCircle;
     private GeoFire geoFire;
@@ -64,6 +67,9 @@ public class SFVehiclesActivity extends FragmentActivity implements GeoQueryEven
 
         Firebase.setAndroidContext(this);
 
+        //Firebase.getDefaultConfig().setPersistenceEnabled(true);
+        //Firebase.getDefaultConfig().setPersistentStorage();
+
         // setup GeoFire
         this.geoFire = new GeoFire(new Firebase(GEO_FIRE_REF));
         // radius in km
@@ -71,7 +77,28 @@ public class SFVehiclesActivity extends FragmentActivity implements GeoQueryEven
 
         // setup markers
         this.markers = new HashMap<String, Marker>();
+
+        Firebase connectedRef = new Firebase("https://publicdata-transit.firebaseio.com/.info/connected");
+        connectedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                boolean connected = snapshot.getValue(Boolean.class);
+                if (connected) {
+                    System.out.println("connected");
+                } else {
+                    System.out.println("not connected");
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+                System.err.println("Listener was cancelled");
+            }
+        });
+
     }
+
+
 
     @Override
     protected void onStop() {
